@@ -22,9 +22,21 @@ public class TakeAwayGelateria implements TakeAwayBill{
             throw new TakeAwayBillException
                 ("La lista contiene un elemento nullo"); 
         }
-
+        
+        int numGelati=0;
+        double gelatoMenoCaro=0.00;
+        
         for(MenuItem item : itemsOrdered) {
-            totalPrice += item.getPrice(); 
+        	if (item.getItemType() == MenuItem.item.Gelati) {
+        		if (numGelati>0 && item.getPrice() < gelatoMenoCaro )
+        			gelatoMenoCaro=item.getPrice();
+        		else
+        			gelatoMenoCaro=item.getPrice();
+        		numGelati++;
+        	}
+            totalPrice += item.getPrice();
+            if (numGelati > 5)
+            	totalPrice -= gelatoMenoCaro*0.5;
         }
 
         return totalPrice;

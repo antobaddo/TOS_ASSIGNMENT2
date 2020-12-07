@@ -32,7 +32,7 @@ public class TakeAwayTest {
 
 
      @Test
-    public void simpleSumTest() throws TakeAwayBillException{
+    public void sommaPrezzoTotaleTest() throws TakeAwayBillException{
         List<MenuItem> lista = new ArrayList<MenuItem>();
 
         lista.add(new MenuItem(MenuItem.item.Bevande, "Aranciata", 3.00));
@@ -43,6 +43,22 @@ public class TakeAwayTest {
 
         assertEquals(8.50,totalPrice,0.01);
     }
+     
+    @Test
+     public void scontoPiuDi5Gelati() throws TakeAwayBillException{
+    	 List<MenuItem> lista = new ArrayList<MenuItem>();
+         
+    	 lista.add(new MenuItem(MenuItem.item.Gelati, "Stracciatella", 2.00));
+    	 lista.add(new MenuItem(MenuItem.item.Gelati, "Amarena", 2.00));
+    	 lista.add(new MenuItem(MenuItem.item.Gelati, "Crema veneziana", 2.00));
+    	 lista.add(new MenuItem(MenuItem.item.Gelati, "Fior di latte", 2.00));
+    	 lista.add(new MenuItem(MenuItem.item.Gelati, "Fragola", 1.00));
+    	 lista.add(new MenuItem(MenuItem.item.Gelati, "Limone", 1.00));
+
+         totalPrice = gelateria.getOrderPrice(lista,user);
+
+         assertEquals(9.50,totalPrice,0.01);
+     }
 
     @Test(expected = TakeAwayBillException.class) 
     public void nullListTest() throws TakeAwayBillException{
