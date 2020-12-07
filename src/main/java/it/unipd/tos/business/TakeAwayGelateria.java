@@ -54,6 +54,11 @@ public class TakeAwayGelateria implements TakeAwayBill{
             totalPrice += item.getPrice();
         }
         
+        // commissione di 0.50 €
+        if (totalPrice < 10.00) {
+            totalPrice += 0.50;
+        }
+        
         // sconto più di 5 gelati
         if (numGelati > 5) {
             totalPrice -= gelatoMenoCaro*0.5;

@@ -35,12 +35,13 @@ public class TakeAwayTest {
         List<MenuItem> lista = new ArrayList<MenuItem>();
 
         lista.add(new MenuItem(MenuItem.item.Bevande, "Aranciata", 3.00));
+        lista.add(new MenuItem(MenuItem.item.Bevande, "Coca-cola", 3.00));
         lista.add(new MenuItem(MenuItem.item.Budini, "Cioccolato", 3.50));
         lista.add(new MenuItem(MenuItem.item.Gelati, "Stracciatella", 2.00));
 
         totalPrice = gelateria.getOrderPrice(lista,user);
 
-        assertEquals(8.50,totalPrice,0.01);
+        assertEquals(11.50,totalPrice,0.01);
     }
      
     @Test
@@ -51,12 +52,12 @@ public class TakeAwayTest {
     	 lista.add(new MenuItem(MenuItem.item.Gelati, "Amarena", 2.00));
     	 lista.add(new MenuItem(MenuItem.item.Gelati, "Crema veneziana", 2.00));
     	 lista.add(new MenuItem(MenuItem.item.Gelati, "Fior di latte", 2.00));
-    	 lista.add(new MenuItem(MenuItem.item.Gelati, "Fragola", 1.00));
+    	 lista.add(new MenuItem(MenuItem.item.Gelati, "Fragola", 2.00));
     	 lista.add(new MenuItem(MenuItem.item.Gelati, "Limone", 1.00));
 
          totalPrice = gelateria.getOrderPrice(lista,user);
 
-         assertEquals(9.50,totalPrice,0.01);
+         assertEquals(10.50,totalPrice,0.01);
      }
     
      @Test
@@ -84,6 +85,20 @@ public class TakeAwayTest {
              assertEquals("Errore! La lista non può contenere più di 30 elementi", e.getMessage());
          }
 
+     }
+     
+     @Test
+     public void commissione50CentSeTotaleMinoreDi10euroTest() throws TakeAwayBillException{
+    	 List<MenuItem> lista = new ArrayList<MenuItem>();
+         
+    	 lista.add(new MenuItem(MenuItem.item.Gelati, "Stracciatella", 2.00));
+    	 lista.add(new MenuItem(MenuItem.item.Gelati, "Amarena", 2.00));
+    	 lista.add(new MenuItem(MenuItem.item.Gelati, "Crema veneziana", 2.00));
+    	 lista.add(new MenuItem(MenuItem.item.Gelati, "Limone", 1.00));
+
+         totalPrice = gelateria.getOrderPrice(lista,user);
+
+         assertEquals(7.50,totalPrice,0.01);
      }
 
     @Test(expected = TakeAwayBillException.class) 
