@@ -25,9 +25,13 @@ public class TakeAwayGelateria implements TakeAwayBill{
         
         int numGelati=0;
         double gelatoMenoCaro=0.00;
+        double gelatiBudini=0.00;
+        
         
         for(MenuItem item : itemsOrdered) {
             if (item.getItemType() == MenuItem.item.Gelati) {
+                
+                // l'articolo è un gelato
                 if (numGelati>0 && item.getPrice() < gelatoMenoCaro ) {
                     gelatoMenoCaro=item.getPrice();
                 }
@@ -35,13 +39,26 @@ public class TakeAwayGelateria implements TakeAwayBill{
                     gelatoMenoCaro=item.getPrice();
                 }
                 numGelati++;
+                gelatiBudini+=item.getPrice();
+            }
+            
+            // l'articolo è un budino
+            if (item.getItemType() == MenuItem.item.Budini) {
+                gelatiBudini+=item.getPrice();
             }
             totalPrice += item.getPrice();
-            if (numGelati > 5) {
-                totalPrice -= gelatoMenoCaro*0.5;
-            }
         }
-
+        
+        // sconto più di 5 gelati
+        if (numGelati > 5) {
+            totalPrice -= gelatoMenoCaro*0.5;
+        }
+        
+        // sconto spesa di budini+gelati > 50 €
+        if (gelatiBudini > 50.00) {
+            totalPrice *= 0.9;
+        }
+        
         return totalPrice;
     }
 }
