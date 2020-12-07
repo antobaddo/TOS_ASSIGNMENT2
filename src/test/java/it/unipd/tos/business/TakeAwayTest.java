@@ -70,6 +70,21 @@ public class TakeAwayTest {
 
         assertEquals(59.4,totalPrice,0.01);
     }
+     
+     @Test
+     public void erroreOrdinazionePiu30ElementiTest() throws TakeAwayBillException{
+         List<MenuItem> lista = new ArrayList<MenuItem>();
+
+         for (int i = 0; i < 31; i++) {
+             lista.add(new MenuItem(MenuItem.item.Bevande, "Coca-cola", 1.50));
+         }
+         try{
+             totalPrice = gelateria.getOrderPrice(lista,user);
+         }catch(TakeAwayBillException e){
+             assertEquals("Errore! La lista non può contenere più di 30 elementi", e.getMessage());
+         }
+
+     }
 
     @Test(expected = TakeAwayBillException.class) 
     public void nullListTest() throws TakeAwayBillException{

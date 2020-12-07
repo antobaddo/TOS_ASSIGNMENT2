@@ -23,6 +23,11 @@ public class TakeAwayGelateria implements TakeAwayBill{
                 ("La lista contiene un elemento nullo"); 
         }
         
+        if(itemsOrdered.size()>30){
+            throw new TakeAwayBillException
+                ("Errore! La lista non può contenere più di 30 elementi"); 
+        }
+        
         int numGelati=0;
         double gelatoMenoCaro=0.00;
         double gelatiBudini=0.00;
