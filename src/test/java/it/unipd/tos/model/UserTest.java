@@ -16,8 +16,13 @@ public class UserTest {
 	
 	@Before 
 	public void setup() {
-        user = new User("Mario", "Rossi", 42);
+        user = new User("MR1","Mario", "Rossi", 42);
     }
+	
+	@Test
+	public void getIdTest() {
+		assertEquals("MR1",user.getId());
+	}
 	
 	@Test
 	public void getFirstNameTest() {
