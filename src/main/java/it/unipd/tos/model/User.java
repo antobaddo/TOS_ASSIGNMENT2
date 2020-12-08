@@ -5,14 +5,14 @@
 package it.unipd.tos.model;
 
 public class User {
-	private String id;
+    private String id;
     private String firstName;
     private String surname;
     private int age;
 
     public User(String id, String firstName, String surname, int age) {
         this.id = id;
-    	this.firstName = firstName;
+        this.firstName = firstName;
         this.surname = surname;
         this.age = age;
     }

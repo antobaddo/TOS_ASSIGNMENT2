@@ -4,11 +4,14 @@
     
 package it.unipd.tos.business;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import it.unipd.tos.model.MenuItem;
+import it.unipd.tos.model.Scontrino;
 import it.unipd.tos.model.User;
 import it.unipd.tos.business.exception.TakeAwayBillException;
-import it.unipd.tos.model.InvoiceTotal;
 
 public class TakeAwayGelateria implements TakeAwayBill{
     public double getOrderPrice(List<MenuItem> itemsOrdered, User user)
@@ -73,30 +76,32 @@ public class TakeAwayGelateria implements TakeAwayBill{
         return totalPrice;
     }
     
-    public List<InvoiceTotal> getGratisInvoce(List<InvoiceTotal> invoice){
+    public List<Scontrino> getScontriniGratis(List<Scontrino> scontrini){
 
-        List<InvoiceTotal> gratis = new ArrayList<InvoiceTotal>();
-        //attenzione alle ore in secondi
-        for (int i = 0; i < invoice.size(); i++) {
-            if(invoice.get(i).getUser().getEta()<18 &&
-             !gratis.contains(invoice.get(i)) &&
-             invoice.get(i).gettempoInSecondi()> 64800 &&
-             invoice.get(i).gettempoInSecondi()< 68400)
+        List<Scontrino> aux = new ArrayList<Scontrino>();
+
+        for (int i = 0; i < scontrini.size(); i++) {
+            if(scontrini.get(i).getUser().getAge()<18 &&
+             !aux.contains(scontrini.get(i)) &&
+             scontrini.get(i).getSecMezzanotte()> 64800 &&
+             scontrini.get(i).getSecMezzanotte()< 68400)
             {
-                gratis.add(invoice.get(i));
+                aux.add(scontrini.get(i));
             }
         }
-
-        if(gratis.size()>9){
-            long times = System.nanoTime();
-            Collections.shuffle(gratis, new Random(times));
-            //mettiamo a zero i prezzi
-            gratis = gratis.subList(0,10);
-            for (InvoiceTotal i : gratis) {
+        List<Scontrino> scontriniGratis = new ArrayList<Scontrino>();
+        
+        if(aux.size()>10){
+            Random rm = new Random();
+            while (scontriniGratis.size()<10) {
+                int index = rm.nextInt(aux.size());
+                scontriniGratis.add(aux.get(index));
+                aux.remove(index);
+            }
+            for (Scontrino i : scontriniGratis) {
                 i.setPrice(0.0);
             }
         }
-
-        return gratis;
+        return scontriniGratis;
     }
 }

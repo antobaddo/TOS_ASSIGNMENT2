@@ -8,13 +8,11 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import it.unipd.tos.business.TakeAwayGelateria;
-
 public class UserTest {
 	
 	private User user;
 	
-	@Before 
+    @Before 
 	public void setup() {
         user = new User("MR1","Mario", "Rossi", 42);
     }
